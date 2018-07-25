@@ -40,7 +40,7 @@
     "js-main": "npm-run-all js-lint js-compile js-minify",
     "js-docs": "npm-run-all js-lint-docs js-minify-docs",
     "js-lint": "eslint js/src js/tests build/",
-    "js-lint-docs": "eslint site/docs/4.1/assets/js/ site/sw.js",
+    "js-lint-docs": "eslint site/docs/4.1/assets/js/",
     "js-compile": "npm-run-all --parallel js-compile-* --sequential js-copy",
     "js-compile-standalone": "rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap",
     "js-compile-bundle": "rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap",
@@ -60,14 +60,12 @@
     "coveralls": "shx cat js/coverage/lcov.info | coveralls",
     "docs": "npm-run-all --parallel css-docs js-docs --sequential docs-compile docs-lint",
     "docs-compile": "bundle exec jekyll build",
-    "postdocs-compile": "npm run docs-workbox-precache",
     "docs-github": "shx echo \"github: true\" > twbsconfig.yml && npm run docs-compile -- --config _config.yml,twbsconfig.yml && shx rm ./twbsconfig.yml",
     "docs-github-serve": "npm run docs-serve -- --skip-initial-build --no-watch",
     "docs-lint": "npm-run-all docs-lint-*",
     "docs-lint-htmllint": "htmllint --rc build/.htmllintrc \"_gh_pages/**/*.html\" \"js/tests/**/*.html\"",
     "docs-lint-vnu-jar": "node build/vnu-jar.js",
     "docs-serve": "bundle exec jekyll serve",
-    "docs-workbox-precache": "node build/workbox.js",
     "update-deps": "ncu -a -x jquery -x bundlesize && npm update && bundle update && shx echo Manually update \"site/docs/4.1/assets/js/vendor/\"",
     "release": "npm run dist && npm run release-sri && npm run release-zip && npm run docs-github",
     "release-sri": "node build/generate-sri.js",
@@ -142,8 +140,7 @@
     "stylelint-order": "^1.0.0",
     "stylelint-scss": "^3.3.1",
     "uglify-js": "^3.4.9",
-    "vnu-jar": "18.8.29",
-    "workbox-build": "^3.6.2"
+    "vnu-jar": "18.8.29"
   },
   "engines": {
     "node": ">=6"
